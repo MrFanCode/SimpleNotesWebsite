@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Outfit', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Smooth theme color transitions across the entire app */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+  }
+
+  /* Exempt elements where transition would look wrong */
+  input,
+  textarea,
+  button,
+  a,
+  [role='button'] {
+    transition-property: background-color, border-color, color, fill, stroke,
+      opacity, transform, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
+}
+
+/* ─── Custom scrollbar ──────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-stone-300 dark:bg-stone-700 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-stone-400 dark:bg-stone-600;
+}
+
+/* ─── Card stagger entrance ─────────────────────────── */
+.card-animate {
+  animation: cardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─── Modal animations ──────────────────────────────── */
+.overlay-animate {
+  animation: overlayIn 0.2s ease forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-animate {
+  animation: modalIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─── Skeleton shimmer ──────────────────────────────── */
+.skeleton {
+  @apply bg-stone-100 dark:bg-stone-800 rounded animate-pulse;
+}
+
+/* ─── Sidebar teal accent line ──────────────────────── */
+.nav-active-bar {
+  position: relative;
+}
+.nav-active-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 2.5px;
+  border-radius: 0 2px 2px 0;
+  @apply bg-teal-500;
+}
